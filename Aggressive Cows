@@ -1,0 +1,43 @@
+class Solution {
+    
+    public boolean fun(int[] stalls,int n , int k , int guess){
+        int cow =1;
+        int prev = stalls[0];
+        
+        for(int i =1;i<n;i++){
+            int dist = stalls[i]-prev;
+            
+            if(dist<guess){
+               continue;
+            }else{
+                cow++;
+                prev =stalls[i];
+            }
+        }
+        if(cow>=k){
+            return true;
+        }
+        return false;
+    }
+    
+    public int aggressiveCows(int[] stalls, int k) {
+        // code here
+        Arrays.sort(stalls);
+        int n  = stalls.length;
+        int low  = 1;
+        int high = stalls[n-1];
+        int res = -1;
+        
+        while(low<=high){
+            int mid = low + (high -low)/2;
+            boolean f = fun(stalls,n,k,mid);
+            if(f==true){
+                res = mid;
+                low = mid +1;
+            }else{
+                high = mid -1;
+            }
+        }
+        return res;
+    }
+}
