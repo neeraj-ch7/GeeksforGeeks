@@ -1,0 +1,49 @@
+class Solution {
+    
+    public boolean fun(int[] arr,int stud,int limit ,int n ){
+        
+        int k = 1;
+        int page =0;
+        for(int i=0;i<n;i++){
+            if(page+arr[i]<=limit){
+                page+=arr[i];
+            }else{
+                k++;
+                page = arr[i];
+                
+                if(k > stud){
+                    return false;
+                }
+            }
+        }
+        return true;
+        
+    }
+    
+    public int findPages(int[] arr, int k) {
+        // code here
+        
+        int n = arr.length;
+        int low = Arrays.stream(arr).max().getAsInt();
+        int high = Arrays.stream(arr).sum();
+        int res =-1;
+        
+        if(n<k) return -1;
+        
+        while(low<=high){
+            int mid = low+(high - low)/2;
+            
+            boolean check = fun(arr,k,mid,n);
+            
+            if(check==true){
+                res = mid;
+                high = mid-1;
+            }else{
+                low = mid+1;
+            }
+        }
+        
+        return res;
+        
+    }
+}
