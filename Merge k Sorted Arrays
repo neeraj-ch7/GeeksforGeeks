@@ -1,0 +1,54 @@
+import java.util.*;
+
+class Solution {
+
+    static class Node {
+        int value;
+        int row;
+        int col;
+
+        Node(int value, int row, int col) {
+            this.value = value;
+            this.row = row;
+            this.col = col;
+        }
+    }
+
+    static class Compare implements Comparator<Node> {
+        @Override
+        public int compare(Node a, Node b) {
+            return Integer.compare(a.value, b.value);
+        }
+    }
+
+    public ArrayList<Integer> mergeArrays(int[][] mat) {
+
+        int n = mat.length;
+        int m = mat[0].length;
+
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        PriorityQueue<Node> pq = new PriorityQueue<>(new Compare());
+
+        // Insert first element of every row
+        for (int i = 0; i < n; i++) {
+            pq.offer(new Node(mat[i][0], i, 0));
+        }
+
+        while (!pq.isEmpty()) {
+
+            Node curr = pq.poll();
+            ans.add(curr.value);
+
+            int row = curr.row;
+            int col = curr.col;
+
+            // Insert next element from the same row
+            if (col + 1 < m) {
+                pq.offer(new Node(mat[row][col + 1], row, col + 1));
+            }
+        }
+
+        return ans;
+    }
+}
