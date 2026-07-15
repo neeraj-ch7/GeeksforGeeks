@@ -1,0 +1,14 @@
+class Solution {
+   static int fun(int n){
+        if(n==0){
+            return 0;
+        }
+        int d = n%10;
+        n = n/10;
+        return fun(n)+d;
+    }
+    static int sumOfDigits(int n) {
+        // code here
+        return fun(n);
+    }
+}
