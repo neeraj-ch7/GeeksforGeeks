@@ -1,0 +1,23 @@
+class Solution {
+    
+    static StringBuilder fun(StringBuilder s,char c,int n){
+        if(n<0) return new StringBuilder();
+        
+        
+        StringBuilder ans = fun(s,c,n-1);
+        if(s.charAt(n)!= c){
+            ans.append(s.charAt(n));
+        }
+        return ans;
+    }
+    
+    // Function to remove all occurrences of the character from the string
+    public void removeCharacter(StringBuilder s, char c) {
+        // code here
+        int n = s.length()-1;
+        StringBuilder ans = fun(s,c,n);
+        s.setLength(0);
+        s.append(ans);
+        
+    }
+}
